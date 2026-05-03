@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+<style>
+body { font-family: Arial; background:#f2f2f2; }
+.box {
+    background:white;
+    padding:10px;
+    margin:10px;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>📊 All Orders</h2>
+<div id="orders"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+<script>
+// same firebase config
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  databaseURL: "YOUR_DB_URL",
+  projectId: "YOUR_ID",
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const ordersDiv = document.getElementById("orders");
+
+db.ref("orders").on("value", (snapshot) => {
+    ordersDiv.innerHTML = "";
+    snapshot.forEach((child) => {
+        let data = child.val();
+
+        ordersDiv.innerHTML += `
+        <div class="box">
+        <b>UID:</b> ${data.uid}<br>
+        <b>Pack:</b> ${data.pack}<br>
+        <b>Payment:</b> ${data.payment}<br>
+        <b>Number:</b> ${data.number}<br>
+        <b>Time:</b> ${data.time}
+        </div>
+        `;
+    });
+});
+</script>
+
+</body>
+</html>
