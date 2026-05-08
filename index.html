@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FF Bazar - FF Diamond Store</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri',sans-serif}
+body{background:#f5f5f7;color:#1d1d1f;min-height:100vh;padding-bottom:70px}
+.header{background:#fff;padding:12px 15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);position:sticky;top:0;z-index:100}
+.logo{font-size:20px;font-weight:700;color:#1d1d1f;display:flex;align-items:center;gap:6px}
+.logo span{color:#7c3aed}
+.header-right{display:flex;gap:10px;align-items:center}
+.wallet{background:#7c3aed;color:#fff;padding:8px 14px;border-radius:20px;font-size:14px;font-weight:600}
+.profile{width:36px;height:36px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.container{max-width:500px;margin:0 auto;padding:15px}
+.step-box{background:#fff;border-radius:16px;padding:15px;margin:15px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.step-title{display:flex;align-items:center;gap:10px;margin-bottom:15px;font-size:18px;font-weight:700}
+.step-num{background:#7c3aed;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.pkg-card{background:#fff;border:2px solid #e5e7eb;border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:0.2s}
+.pkg-card:hover{border-color:#7c3aed}
+.pkg-card.selected{border-color:#7c3aed;background:#f5f3ff}
+.pkg-card h4{font-size:15px;font-weight:700;color:#1d1d1f;margin-bottom:4px}
+.pkg-card p{font-size:13px;color:#7c3aed;font-weight:700}
+.cat-title{grid-column:1/-1;background:#f5f3ff;color:#7c3aed;padding:8px;border-radius:8px;font-weight:700;font-size:14px;margin-top:8px;text-align:center}
+.pay-tabs{display:flex;gap:8px;margin:12px 0}
+.pay-tab{flex:1;padding:12px;background:#f5f5f7;border:2px solid #e5e7eb;border-radius:12px;text-align:center;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
+.pay-tab.active{border-color:#7c3aed;background:#f5f3ff}
+.pay-tab img{width:22px;height:22px}
+.payment-info{background:#f5f3ff;padding:14px;border-radius:12px;text-align:center;margin:12px 0;border:1px solid #ddd6fe}
+.payment-info h4{color:#7c3aed;font-size:20px;margin-bottom:4px;font-weight:700}
+.payment-info p{font-size:13px;color:#6b7280}
+.warning{background:#fef2f2;border-left:3px solid #ef4444;padding:10px;border-radius:6px;margin:10px 0;font-size:12px;color:#991b1b}
+label{display:block;margin:12px 0 5px;font-size:13px;font-weight:600;color:#4b5563}
+input{width:100%;padding:13px;background:#f5f5f7;border:1px solid #e5e7eb;border-radius:10px;font-size:15px}
+input:focus{border-color:#7c3aed;outline:none}
+button{width:100%;padding:15px;background:#7c3aed;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;margin-top:15px;cursor:pointer}
+button:active{transform:scale(0.98)}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+.nav-item{text-align:center;cursor:pointer;flex:1;padding:5px}
+.nav-item svg{width:24px;height:24px;margin:0 auto;color:#6b7280}
+.nav-item p{font-size:10px;margin-top:2px;color:#6b7280}
+.nav-item.active p{color:#7c3aed;font-weight:700}
+.nav-item.active svg{color:#7c3aed}
+.help-btn{position:fixed;bottom:80px;right:15px;background:#ef4444;color:#fff;padding:12px 18px;border-radius:25px;font-weight:700;box-shadow:0 4px 12px rgba(239,68,68,0.4);z-index:90;display:flex;align-items:center;gap:6px}
+.how-order{color:#7c3aed;font-size:13px;font-weight:600;margin-top:10px;display:flex;align-items:center;gap:5px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">💎 <span>FF Bazar</span></div>
+<div class="header-right">
+<div class="wallet">💰 0৳</div>
+<div class="profile">F</div>
+</div>
+</div>
+
+<div class="container">
+<div class="step-box">
+<div class="step-title"><div class="step-num">1</div>Select Recharge</div>
+<div class="grid" id="pkgGrid">
+<div class="cat-title">Weekly / Monthly Offer</div>
+<div class="pkg-card" data-name="Weekly - 154 TK"><h4>WEEKLY</h4><p>BDT 154</p></div>
+<div class="pkg-card" data-name="2X Weekly - 308 TK"><h4>2X WEEKLY</h4><p>BDT 308</p></div>
+<div class="pkg-card" data-name="3X Weekly - 460 TK"><h4>3X WEEKLY</h4><p>BDT 460</p></div>
+<div class="pkg-card" data-name="Monthly - 765 TK"><h4>MONTHLY</h4><p>BDT 765</p></div>
+<div class="pkg-card" data-name="2X Monthly - 1530 TK"><h4>2X MONTHLY</h4><p>BDT 1530</p></div>
+<div class="pkg-card" data-name="1 Weekly + 1 Monthly - 915 TK"><h4>1W + 1M</h4><p>BDT 915</p></div>
+<div class="pkg-card" data-name="3 Weekly + 1 Monthly - 1220 TK"><h4>3W + 1M</h4><p>BDT 1220</p></div>
+
+<div class="cat-title">Weekly Lite</div>
+<div class="pkg-card" data-name="1X Weekly Lite - 44 TK"><h4>1X WEEKLY LITE</h4><p>BDT 44</p></div>
+<div class="pkg-card" data-name="2X Weekly Lite - 88 TK"><h4>2X WEEKLY LITE</h4><p>BDT 88</p></div>
+<div class="pkg-card" data-name="3X Weekly Lite - 130 TK"><h4>3X WEEKLY LITE</h4><p>BDT 130</p></div>
+<div class="pkg-card" data-name="5X Weekly Lite - 210 TK"><h4>5X WEEKLY LITE</h4><p>BDT 210</p></div>
+
+<div class="cat-title">Evo Access</div>
+<div class="pkg-card" data-name="3 Days Evo Access - 65 TK"><h4>3 DAYS EVO ACCESS</h4><p>BDT 65</p></div>
+<div class="pkg-card" data-name="7 Days Evo Access - 99 TK"><h4>7 DAYS EVO ACCESS</h4><p>BDT 99</p></div>
+<div class="pkg-card" data-name="14 Days Evo Access - 200 TK"><h4>14 DAYS EVO ACCESS</h4><p>BDT 200</p></div>
+<div class="pkg-card" data-name="30 Days Evo Access - 299 TK"><h4>30 DAYS EVO ACCESS</h4><p>BDT 299</p></div>
+
+<div class="cat-title">Level Up Pass</div>
+<div class="pkg-card" data-name="Level Up Package - Level 6 - 40 TK"><h4>LEVEL 6</h4><p>BDT 40</p></div>
+<div class="pkg-card" data-name="Level Up Package - Level 10 - 70 TK"><h4>LEVEL 10</h4><p>BDT 70</p></div>
+<div class="pkg-card" data-name="Level Up Package - Level 15 - 70 TK"><h4>LEVEL 15</h4><p>BDT 70</p></div>
+<div class="pkg-card" data-name="Level Up Package - Level 20 - 70 TK"><h4>LEVEL 20</h4><p>BDT 70</p></div>
+<div class="pkg-card" data-name="Level Up Package - Level 25 - 70 TK"><h4>LEVEL 25</h4><p>BDT 70</p></div>
+<div class="pkg-card" data-name="Level Up Package - Level 30 - 100 TK"><h4>LEVEL 30</h4><p>BDT 100</p></div>
+<div class="pkg-card" data-name="Full Level Up (1270 Diamond) - 400 TK"><h4>FULL LEVEL UP</h4><p>BDT 400</p></div>
+
+<div class="cat-title">UID Top Up</div>
+<div class="pkg-card" data-name="25 Diamond - 24 TK"><h4>25 DIAMOND</h4><p>BDT 24</p></div>
+<div class="pkg-card" data-name="50 Diamond - 38 TK"><h4>50 DIAMOND</h4><p>BDT 38</p></div>
+<div class="pkg-card" data-name="115 Diamond - 79 TK"><h4>115 DIAMOND</h4><p>BDT 79</p></div>
+<div class="pkg-card" data-name="240 Diamond - 158 TK"><h4>240 DIAMOND</h4><p>BDT 158</p></div>
+<div class="pkg-card" data-name="355 Diamond - 238 TK"><h4>355 DIAMOND</h4><p>BDT 238</p></div>
+<div class="pkg-card" data-name="480 Diamond - 316 TK"><h4>480 DIAMOND</h4><p>BDT 316</p></div>
+<div class="pkg-card" data-name="610 Diamond - 405 TK"><h4>610 DIAMOND</h4><p>BDT 405</p></div>
+<div class="pkg-card" data-name="850 Diamond - 560 TK"><h4>850 DIAMOND</h4><p>BDT 560</p></div>
+<div class="pkg-card" data-name="1240 Diamond - 799 TK"><h4>1240 DIAMOND</h4><p>BDT 799</p></div>
+<div class="pkg-card" data-name="2530 Diamond - 1595 TK"><h4>2530 DIAMOND</h4><p>BDT 1595</p></div>
+<div class="pkg-card" data-name="5060 Diamond - 3190 TK"><h4>5060 DIAMOND</h4><p>BDT 3190</p></div>
+<div class="pkg-card" data-name="10120 Diamond - 6350 TK"><h4>10120 DIAMOND</h4><p>BDT 6350</p></div>
+</div>
+<div class="how-order" onclick="alert('1. প্যাকেজ সিলেক্ট করো\n2. UID + TrxID দাও\n3. Send Money করো 01873786543\n4. Order Confirm করো\n\n1-5 মিনিটে ডায়মন্ড পাবা')">
+<svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2.9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+কিভাবে অর্ডার করবেন?
+</div>
+</div>
+
+<div class="step-box">
+<div class="step-title"><div class="step-num">2</div>Account Info</div>
+<div class="pay-tabs">
+<div class="pay-tab active" onclick="selectPay('bkash')">
+<img src="https://i.imgur.com/7Trk9hS.png" alt="bKash">bKash
+</div>
+<div class="pay-tab" onclick="selectPay('nagad')">
+<img src="https://i.imgur.com/8bHqJgB.png" alt="Nagad">Nagad
+</div>
+</div>
+<div class="payment-info">
+<h4 id="payNumber">01873786543</h4>
+<p id="payType">bKash Personal - Send Money</p>
+</div>
+<div class="warning">❌ সতর্কতা: উপরের নাম্বার ছাড়া অন্য নাম্বারে টাকা পাঠালে FF Bazar দায়ী থাকবে না। Transaction ID ভুল দিলে অর্ডার বাতিল হবে।</div>
+<label>Free Fire UID *</label>
+<input type="number" id="uid" placeholder="তোমার গেমের UID লিখো">
+<label id="trxLabel">bKash Transaction ID *</label>
+<input type="text" id="trxid" placeholder="TrxID লিখো, যেমন: 9H7K2M4P1Q">
+<button onclick="submitOrder()">🚀 Order Confirm করো</button>
+</div>
+</div>
+
+<div class="help-btn" onclick="window.open('https://wa.me/8801873786543')">
+<svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1.45 1 1V20c0.55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1.45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+সাহায্য লাগবে?
+</div>
+
+<div class="bottom-nav">
+<div class="nav-item active"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><p>Home</p></div>
+<div class="nav-item"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg><p>Add Money</p></div>
+<div class="nav-item" onclick="checkOrder()"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2.9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg><p>My Orders</p></div>
+<div class="nav-item"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2.9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg><p>My Codes</p></div>
+<div class="nav-item" onclick="showAdmin()"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><p>My Account</p></div>
+</div>
+
+<script>
+let selectedPkg = '';
+let selectedPay = 'bkash';
+const payNum = {bkash:'01873786543',nagad:'01873786543'};
+
+document.querySelectorAll('.pkg-card').forEach(card=>{
+card.onclick=()=>{document.querySelectorAll('.pkg-card').forEach(c=>c.classList.remove('selected'));card.classList.add('selected');selectedPkg=card.dataset.name}
+});
+
+function selectPay(m){
+selectedPay=m;
+document.querySelectorAll('.pay-tab').forEach(t=>t.classList.remove('active'));
+event.target.closest('.pay-tab').classList.add('active');
+document.getElementById('payNumber').innerText=payNum[m];
+document.getElementById('payType').innerText=m==='bkash'?'bKash Personal - Send Money':'Nagad Personal - Send Money';
+document.getElementById('trxLabel').innerText=m==='bkash'?'bKash Transaction ID *':'Nagad Transaction ID *';
+}
+
+function submitOrder(){
+const uid=document.getElementById('uid').value.trim();
+const trxid=document.getElementById('trxid').value.trim().toUpperCase();
+if(!selectedPkg){alert('❌ প্যাকেজ সিলেক্ট করো');return}
+if(!uid){alert('❌ Free Fire UID দাও');return}
+if(!trxid){alert('❌ Transaction ID দাও');return}
+let orders=JSON.parse(localStorage.getItem('ffOrders')||'[]');
+if(orders.find(o=>o.trxid===trxid)){alert('❌ এই TrxID দিয়ে অর্ডার আছে');return}
+orders.push({id:Date.now(),pkg:selectedPkg,uid:uid,trxid:trxid,payment:selectedPay,status:'Pending',time:new Date().toLocaleString('en-BD')});
+localStorage.setItem('ffOrders',JSON.stringify(orders));
+alert('✅ অর্ডার সাবমিট!\n\n'+selectedPkg+'\nUID: '+uid+'\n\nআমরা চেক করে 1-5 মিনিটে ডায়মন্ড পাঠিয়ে দিবো।');
+document.getElementById('uid').value='';document.getElementById('trxid').value='';document.querySelectorAll('.pkg-card').forEach(c=>c.classList.remove('selected'));selectedPkg='';
+}
+
+function checkOrder(){
+let trx=prompt('TrxID দাও:');
+if(!trx)return;
+let orders=JSON.parse(localStorage.getItem('ffOrders')||'[]');
+let order=orders.find(o=>o.trxid===trx.toUpperCase());
+if(order){
+alert(`স্ট্যাটাস: ${order.status}\nপ্যাকেজ: ${order.pkg}\nUID: ${order.uid}\nসময়: ${order.time}`)
+}else{
+alert('❌ কোনো অর্ডার পাওয়া যায়নি')
+}
+}
+
+function showAdmin(){
+let pass=prompt('Admin Password:');
+if(pass==='ffbazar2024'){
+let orders=JSON.parse(localStorage.getItem('ffOrders')||'[]').reverse();
+let pending=orders.filter(o=>o.status==='Pending').length;
+let msg=`📊 মোট অর্ডার: ${orders.length}\n⏳ Pending: ${pending}\n\n`;
+orders.slice(0,15).forEach(o=>{
+msg+=`${o.status==='Pending'?'🟡':'✅'} ${o.pkg}\nUID: ${o.uid} | ${o.trxid}\n${o.time}\n\n`
+});
+alert(msg)
+}else if(pass){
+alert('❌ Wrong Password')
+}
+}
+</script>
+</body>
+  </html>
