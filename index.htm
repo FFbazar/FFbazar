@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FFBazar BD - Official FF Diamond Store</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Oswald',sans-serif}
+body{background:#0a0a0a url('https://i.imgur.com/8Qf7x3j.jpg') no-repeat center/cover fixed;color:#fff;min-height:100vh}
+.container{max-width:550px;margin:0 auto;padding:15px}
+.header{text-align:center;padding:25px 0;border-bottom:2px solid #FFD700}
+.header h1{font-size:2.2rem;color:#FFD700;text-shadow:0 0 15px #FFD700;letter-spacing:2px}
+.header p{color:#ccc;margin-top:8px;font-size:14px}
+.card{background:rgba(15,15,15,0.95);border:1px solid #FFD700;border-radius:15px;padding:20px;margin:18px 0;backdrop-filter:blur(8px);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.pkg{display:flex;justify-content:space-between;align-items:center;padding:14px;margin:7px 0;background:#1a1a1a;border-radius:10px;border-left:4px solid #FFD700;cursor:pointer;transition:0.3s}
+.pkg:hover{background:#252525;transform:translateX(5px)}
+.pkg.selected{background:linear-gradient(90deg,#FFD700,#ffed4a);color:#000;font-weight:bold;box-shadow:0 0 15px #FFD700}
+.pkg-left{display:flex;align-items:center;gap:10px}
+.pkg-icon{width:28px;height:28px;border-radius:6px}
+.badge{background:#e2136e;color:#fff;font-size:9px;padding:2px 6px;border-radius:4px;margin-left:5px}
+.hot-badge{background:#ff0000;color:#fff;font-size:9px;padding:2px 6px;border-radius:4px;margin-left:5px;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.5}}
+label{display:block;margin:14px 0 6px;color:#FFD700;font-size:15px}
+input{width:100%;padding:13px;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:16px}
+input:focus{border-color:#FFD700;outline:none}
+button{width:100%;padding:16px;background:linear-gradient(90deg,#FFD700,#ffed4a);color:#000;border:none;border-radius:10px;font-size:18px;font-weight:bold;margin-top:18px;cursor:pointer;transition:0.3s}
+button:hover{transform:scale(1.02);box-shadow:0 0 20px #FFD700}
+.payment-box{padding:18px;border-radius:12px;text-align:center;margin:15px 0;display:flex;align-items:center;justify-content:center;gap:12px}
+.payment-box img{width:45px;height:45px}
+.bkash-bg{background:#e2136e}
+.nagad-bg{background:#f7941e}
+.payment-select{display:flex;gap:10px;margin:15px 0}
+.pay-option{flex:1;padding:14px;background:#1a1a1a;border:2px solid #444;border-radius:10px;cursor:pointer;text-align:center;transition:0.3s}
+.pay-option.selected{border-color:#FFD700;background:#252525;transform:scale(1.05)}
+.pay-option img{width:35px;height:35px;display:block;margin:0 auto 6px}
+.status{margin-top:20px;text-align:center}
+.admin-link{position:fixed;bottom:10px;right:10px;font-size:10px;opacity:0.4;background:#000;padding:5px 8px;border-radius:5px}
+.section-title{color:#FFD700;margin:16px 0 6px;font-size:17px;border-bottom:1px solid #333;padding-bottom:5px;display:flex;align-items:center;gap:8px}
+.section-icon{width:22px;height:22px}
+.note{background:#1a1a1a;border-left:3px solid #0f0;padding:10px;border-radius:5px;margin:10px 0;font-size:13px}
+.warning-note{background:#1a0000;border-left:3px solid #f00;padding:10px;border-radius:5px;margin:10px 0;font-size:13px;color:#ff6b6b}
+.imp-note{background:#1a1500;border-left:3px solid #FFD700;padding:10px;border-radius:5px;margin:10px 0;font-size:13px;color:#FFD700}
+#adminPanel{display:none}
+table{width:100%;border-collapse:collapse;margin-top:15px;font-size:13px}
+th,td{border:1px solid #444;padding:8px;text-align:left}
+th{background:#FFD700;color:#000;font-size:12px}
+tr:nth-child(even){background:#1a1a1a}
+.pending{color:#FFD700;font-weight:bold}
+.done{color:#0f0;font-weight:bold}
+.action-btn{padding:6px 10px;background:#0f0;color:#000;border:none;border-radius:4px;cursor:pointer;font-size:12px;margin:2px}
+.delete{background:#f00;color:#fff}
+.login{max-width:300px;margin:80px auto;text-align:center}
+.tabs{display:flex;gap:5px;margin-bottom:15px}
+.tab{flex:1;padding:12px;background:#1a1a1a;border:none;color:#fff;cursor:pointer;border-radius:8px 8px 0 0}
+.tab.active{background:#FFD700;color:#000;font-weight:bold}
+.special-logo{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#ff0000,#FFD700);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;color:#000;box-shadow:0 0 8px #ff0000}
+.top-notice{background:#e2136e;color:#fff;text-align:center;padding:6px;font-size:12px;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="top-notice">⚠️ সাবধান: শুধুমাত্র নিচের নাম্বারেই Send Money করুন</div>
+<div class="container" id="userView">
+<div class="header">
+<h1>💎 FFBazar BD</h1>
+<p>Official Price | Instant Delivery | UID Top Up Only</p>
+</div>
+<div class="card">
+<h2>1. প্যাকেজ সিলেক্ট করো</h2>
+<div class="section-title">
+<div class="special-logo">🔥</div>
+Special Offer
+</div>
+<div class="pkg" data-pkg="Weekly Special - 148 TK">
+<div class="pkg-left">
+<div class="special-logo">🔥</div>
+<span>Weekly Special <span class="hot-badge">HOT</span></span>
+</div>
+<span>148 TK</span>
+</div>
+<div class="pkg" data-pkg="Monthly Special - 740 TK">
+<div class="pkg-left">
+<div class="special-logo">🔥</div>
+<span>Monthly Special <span class="hot-badge">HOT</span></span>
+</div>
+<span>740 TK</span>
+</div>
+<div class="section-title">
+<img class="section-icon" src="https://i.imgur.com/KvJqz1W.png" alt="Weekly">
+Weekly Package
+</div>
+<div class="pkg" data-pkg="Weekly Membership - 154 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/KvJqz1W.png" alt="Weekly">
+<span>Weekly Membership <span class="badge">POPULAR</span></span>
+</div>
+<span>154 TK</span>
+</div>
+<div class="section-title">
+<img class="section-icon" src="https://i.imgur.com/7z8Zq3Y.png" alt="Monthly">
+Monthly Package
+</div>
+<div class="pkg" data-pkg="Monthly Membership - 748 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/7z8Zq3Y.png" alt="Monthly">
+<span>Monthly Membership</span>
+</div>
+<span>748 TK</span>
+</div>
+<div class="section-title">
+<img class="section-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+UID Top Up Package
+</div>
+<div class="pkg" data-pkg="25 Diamond - 25 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 25 Diamond</span>
+</div>
+<span>25 TK</span>
+</div>
+<div class="pkg" data-pkg="50 Diamond - 40 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 50 Diamond</span>
+</div>
+<span>40 TK</span>
+</div>
+<div class="pkg" data-pkg="115 Diamond - 80 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 115 Diamond</span>
+</div>
+<span>80 TK</span>
+</div>
+<div class="pkg" data-pkg="240 Diamond - 160 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 240 Diamond</span>
+</div>
+<span>160 TK</span>
+</div>
+<div class="pkg" data-pkg="355 Diamond - 235 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 355 Diamond</span>
+</div>
+<span>235 TK</span>
+</div>
+<div class="pkg" data-pkg="480 Diamond - 310 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 480 Diamond</span>
+</div>
+<span>310 TK</span>
+</div>
+<div class="pkg" data-pkg="610 Diamond - 390 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 610 Diamond</span>
+</div>
+<span>390 TK</span>
+</div>
+<div class="pkg" data-pkg="850 Diamond - 545 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 850 Diamond</span>
+</div>
+<span>545 TK</span>
+</div>
+<div class="pkg" data-pkg="1090 Diamond - 700 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 1090 Diamond</span>
+</div>
+<span>700 TK</span>
+</div>
+<div class="pkg" data-pkg="1240 Diamond - 785 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 1240 Diamond</span>
+</div>
+<span>785 TK</span>
+</div>
+<div class="pkg" data-pkg="2530 Diamond - 1600 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 2530 Diamond</span>
+</div>
+<span>1600 TK</span>
+</div>
+<div class="pkg" data-pkg="5060 Diamond - 3150 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 5060 Diamond</span>
+</div>
+<span>3150 TK</span>
+</div>
+<div class="pkg" data-pkg="10120 Diamond - 6250 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/nP9xK7L.png" alt="Diamond">
+<span>💎 10120 Diamond</span>
+</div>
+<span>6250 TK</span>
+</div>
+<div class="section-title">
+<img class="section-icon" src="https://i.imgur.com/5vQ9mKp.png" alt="Pass">
+Level Up Pass Package
+</div>
+<div class="pkg" data-pkg="Level Up Pass Full - 400 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/5vQ9mKp.png" alt="Level Pass">
+<span>Level Up Pass Full</span>
+</div>
+<span>400 TK</span>
+</div>
+<div class="pkg" data-pkg="Level Up Pass 10 Level - 44 TK">
+<div class="pkg-left">
+<img class="pkg-icon" src="https://i.imgur.com/5vQ9mKp.png" alt="Level Pass">
+<span>10 Level = 120 Diamond</span>
+</div>
+<span>44 TK</span>
+</div>
+</div>
+
+<div class="card">
+<h2>
+<img class="section-icon" src="https://i.imgur.com/3X7zPqL.png" alt="UID" style="width:24px;height:24px;vertical-align:middle">
+2. UID Top Up করো
+</h2>
+<div class="payment-select">
+<div class="pay-option selected" data-method="bkash" onclick="selectPayment('bkash')">
+<img src="https://i.imgur.com/7Trk9hS.png" alt="bKash">
+<span>bKash</span>
+</div>
+<div class="pay-option" data-method="nagad" onclick="selectPayment('nagad')">
+<img src="https://i.imgur.com/8bHqJgB.png" alt="Nagad">
+<span>Nagad</span>
+</div>
+</div>
+<div class="payment-box bkash-bg" id="paymentBox">
+<img id="paymentLogo" src="https://i.imgur.com/7Trk9hS.png" alt="Payment">
+<div>
+<h3 id="paymentNumber">01873786543</h3>
+<p id="paymentType">bKash Personal - Send Money</p>
+<p id="selectedPkg" style="margin-top:10px;font-weight:bold">প্যাকেজ সিলেক্ট করো</p>
+</div>
+</div>
+
+<div class="warning-note">❌ সতর্কতা: উপরের নাম্বার ছাড়া অন্য নাম্বারে টাকা পাঠালে FFBazar BD দায়ী থাকবে না। ভুল নাম্বারে পেমেন্টের টাকা ফেরত দেওয়া হবে না।</div>
+
+<div class="imp-note">⚠️ গুরুত্বপূর্ণ: Transaction ID ভুল দিলে বা অন্যের TrxID দিলে অর্ডার বাতিল হবে। নিজের TrxID সঠিকভাবে কপি করে বসাও।</div>
+
+<div class="note">⚡ Send Money করার পর নিচের ফর্ম পূরণ করো। UID + TrxID মিললেই 1-5 মিনিটে ডায়মন্ড পাবা।</div>
+
+<label>Free Fire UID *</label>
+<input type="number" id="uid" placeholder="তোমার গেমের UID লিখো">
+<label id="trxLabel">bKash Transaction ID *</label>
+<input type="text" id="trxid" placeholder="TrxID লিখো, যেমন: 9H7K2M4P1Q">
+<label>WhatsApp Number</label>
+<input type="number" id="phone" placeholder="01XXXXXXXXX - Optional">
+<button onclick="submitOrder()">🚀 Order Confirm করো</button>
+</div>
+
+<div class="card status">
+<h3>অর্ডার স্ট্যাটাস চেক করো</h3>
+<input type="text" id="checkTrx" placeholder="TrxID দিয়ে সার্চ করো">
+<button onclick="checkStatus()">Check Status</button>
+<p id="statusResult" style="margin-top:15px"></p>
+</div>
+<a href="#" onclick="showAdmin()" class="admin-link">Admin Panel</a>
+</div>
+
+<!-- Admin Panel -->
+<div class="container" id="adminPanel">
+<div id="loginDiv" class="login card">
+<h2 style="color:#FFD700">🔐 Admin Login</h2>
+<input type="password" id="pass" placeholder="Password দাও">
+<button onclick="login()">Login</button>
+<button onclick="showUser()" style="background:#444;margin-top:10px">Back to Site</button>
+</div>
+<div id="panel" style="display:none">
+<div class="header">
+<h1>⚙️ FFBazar Admin</h1>
+<p>Pending Orders Management</p>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="filterOrders('all')">All Orders</button>
+<button class="tab" onclick="filterOrders('Pending')">Pending</button>
+<button class="tab" onclick="filterOrders('Done')">Completed</button>
+</div>
+<div class="card">
+<button onclick="exportData()" style="background:#0af;margin-bottom:10px">📥 Backup Download</button>
+<button onclick="showUser()" style="background:#444">🏠 Go to Site</button>
+<table id="orderTable">
+<thead>
+<tr><th>Time</th><th>Package</th><th>UID</th><th>TrxID</th><th>Pay</th><th>Phone</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<script>
+let selectedPackage = '';
+let selectedPayment = 'bkash';
+let currentFilter = 'all';
+const paymentNumbers = { bkash: '01873786543', nagad: '01873786543' };
+const ADMIN_PASS = 'ffbazar2024'; // এই পাসওয়ার্ড চেঞ্জ করে দিও
+document.querySelectorAll('.pkg').forEach(pkg => {
+pkg.onclick = () => {
+document.querySelectorAll('.pkg').forEach(p => p.classList.remove('selected'));
+pkg.classList.add('selected');
+selectedPackage = pkg.dataset.pkg;
+document.getElementById('selectedPkg').innerText = 'সিলেক্টেড: ' + selectedPackage;
+}
+});
+function selectPayment(method){
+selectedPayment = method;
+document.querySelectorAll('.pay-option').forEach(p => p.classList.remove('selected'));
+document.querySelector(`[data-method="${method}"]`).classList.add('selected');
+const box = document.getElementById('paymentBox');
+const logo = document.getElementById('paymentLogo');
+const number = document.getElementById('paymentNumber');
+const type = document.getElementById('paymentType');
+const trxLabel = document.getElementById('trxLabel');
+if(method === 'bkash'){
+box.className = 'payment-box bkash-bg';
+logo.src = 'https://i.imgur.com/7Trk9hS.png';
+number.innerText = paymentNumbers.bkash;
+type.innerText = 'bKash Personal - Send Money';
+trxLabel.innerText = 'bKash Transaction ID *';
+} else {
+box.className = 'payment-box nagad-bg';
+logo.src = 'https://i.imgur.com/8bHqJgB.png';
+number.innerText = paymentNumbers.nagad;
+type.innerText = 'Nagad Personal - Send Money';
+trxLabel.innerText = 'Nagad Transaction ID *';
+}
+}
+function submitOrder(){
+const uid = document.getElementById('uid').value.trim();
+const trxid = document.getElementById('trxid').value.trim().toUpperCase();
+const phone = document.getElementById('phone').value.trim();
+if(!selectedPackage){alert('❌ প্যাকেজ সিলেক্ট করো');return}
+if(!uid){alert('❌ Free Fire UID দাও');return}
+if(!trxid){alert('❌ Transaction ID দাও');return}
+let orders = JSON.parse(localStorage.getItem('ffOrders') || '[]');
+if(orders.find(o => o.trxid === trxid)){alert('❌ এই TrxID দিয়ে অর্ডার আছে');return}
+orders.push({
+id: Date.now(),
+pkg: selectedPackage,
+uid: uid,
+trxid: trxid,
+phone: phone,
+payment: selectedPayment,
+status: 'Pending',
+time: new Date().toLocaleString('en-BD',{hour12:true})
+});
+localStorage.setItem('ffOrders', JSON.stringify(orders));
+alert('✅ অর্ডার সাবমিট হইছে!\n\nUID: '+uid+'\nTrxID: '+trxid+'\n\nআমরা চেক করে 1-5 মিনিটে ডায়মন্ড পাঠিয়ে দিবো।');
+document.getElementById('uid').value = '';
+document.getElementById('trxid').value = '';
+document.getElementById('phone').value = '';
+}
+function checkStatus(){
+const trx = document.getElementById('checkTrx').value.trim().toUpperCase();
+if(!trx){alert('TrxID লিখো');return}
+let orders = JSON.parse(localStorage.getItem('ffOrders') || '[]');
+let order = orders.find(o => o.trxid === trx);
+if(order){
+let statusColor = order.status==='Done'?'#0f0':'#FFD700';
+let statusIcon = order.status==='Done'?'✅':'⏳';
+document.getElementById('statusResult').innerHTML = `
+${statusIcon} স্ট্যাটাস: <b style="color:${statusColor}">${order.status}</b><br>
+📦 প্যাকেজ: ${order.pkg}<br>
+🆔 UID: ${order.uid}<br>
+💳 Payment: ${order.payment.toUpperCase()}<br>
+⏰ সময়: ${order.time}`;
+} else {
+document.getElementById('statusResult').innerHTML = '❌ কোনো অর্ডার পাওয়া যায়নি<br>TrxID চেক করে আবার ট্রাই করো';
+}
+}
+function showAdmin(){
+document.getElementById('userView').style.display='none';
+document.getElementById('adminPanel').style.display='block';
+}
+function showUser(){
+document.getElementById('adminPanel').style.display='none';
+document.getElementById('userView').style.display='block';
+}
+function login(){
+if(document.getElementById('pass').value === ADMIN_PASS){
+document.getElementById('loginDiv').style.display='none';
+document.getElementById('panel').style.display='block';
+loadOrders();
+} else {alert('❌ Wrong Password')}
+}
+function loadOrders(){
+let orders = JSON.parse(localStorage.getItem('ffOrders') || '[]').reverse();
+if(currentFilter!=='all') orders = orders.filter(o=>o.status===currentFilter);
+let tbody = document.querySelector('#orderTable tbody');
+tbody.innerHTML = '';
+if(orders.length===0){
+tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px">কোনো অর্ডার নাই</td></tr>';
+return;
+}
+orders.forEach(order => {
+tbody.innerHTML += `
+<tr>
+<td style="font-size:11px">${order.time}</td>
+<td>${order.pkg}</td>
+<td><b>${order.uid}</b></td>
+<td>${order.trxid}</td>
+<td>${order.payment.toUpperCase()}</td>
+<td><a href="tel:${order.phone}" style="color:#0af">${order.phone}</a></td>
+<td class="${order.status==='Done'?'done':'pending'}">${order.status}</td>
+<td>
+${order.status==='Pending'? `<button class="action-btn" onclick="markDone(${order.id})">✓ Done</button>` : ''}
+<button class="action-btn delete" onclick="delOrder(${order.id})">✕</button>
+</td>
+</tr>`;
+});
+}
+function markDone(id){
+let orders = JSON.parse(localStorage.getItem('ffOrders') || '[]');
+let order = orders.find(o => o.id === id);
+order.status = 'Done';
+localStorage.setItem('ffOrders', JSON.stringify(orders));
+loadOrders();
+}
+function delOrder(id){
+if(confirm('Delete করবা?')){
+let orders = JSON.parse(localStorage.getItem('ffOrders') || '[]');
+orders = orders.filter(o => o.id!== id);
+localStorage.setItem('ffOrders', JSON.stringify(orders));
+loadOrders();
+}
+}
+function filterOrders(status){
+currentFilter = status;
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+event.target.classList.add('active');
+loadOrders();
+}
+function exportData(){
+let data = localStorage.getItem('ffOrders');
+let blob = new Blob([data], {type:'application/json'});
+let url = URL.createObjectURL(blob);
+let a = document.createElement('a');
+a.href = url;
+a.download = 'ffbazar_orders_'+Date.now()+'.json';
+a.click();
+}
+</script>
+</body>
+</html>
+
