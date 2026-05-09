@@ -1,0 +1,36 @@
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+// স্টেপ 1: এখানে তোমার Firebase Config বসাও
+const firebaseConfig = {
+    apiKey: "AIzaSyC...",
+    authDomain: "ffbazar-xxxxx.firebaseapp.com",
+    databaseURL: "https://ffbazar-xxxxx-default-rtdb.firebaseio.com",
+    projectId: "ffbazar-xxxxx",
+    storageBucket: "ffbazar-xxxxx.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// স্টেপ 2: ফর্ম Submit হলে ডাটা সেভ হবে
+document.getElementById('orderForm').onsubmit = (e) => {
+    e.preventDefault();
+    push(ref(db, 'orders/'), {
+        uid: document.getElementById('uid').value,
+        package: document.getElementById('package').value,
+        amount: document.getElementById('amount').value,
+        txnid: document.getElementById('txnid').value,
+        status: 'pending',
+        time: Date.now()
+    }).then(() => {
+        alert('অর্ডার সফল! 5 মিনিটে ডায়মন্ড পাবা');
+        e.target.reset();
+    }).catch((error) => {
+        alert('এরর: ' + error);
+    });
+};
+  </script>￼Enter
