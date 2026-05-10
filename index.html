@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF Bazar - FF Diamond Store</title>
+    <link rel="icon" type="image/png" href="ffbazar-logo.png">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri',sans-serif}
+        body{background:#f8f9fa;color:#1d1d1f;min-height:100vh;padding-bottom:80px}
+.header{background:#fff;padding:12px 15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);position:sticky;top:0;z-index:100;width:100%}
+.logo{font-size:22px;font-weight:700;color:#1d1d1f;display:flex;align-items:center;gap:6px}
+.logo span{color:#7c3aed}
+.wallet{display:flex;gap:8px;align-items:center}
+.wallet-btn{background:#7c3aed;color:#fff;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:4px}
+.profile{width:36px;height:36px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px}
+.container{max-width:500px;margin:0 auto;padding:0 12px;width:100%}
+.section-title{text-align:center;font-size:20px;font-weight:800;margin:25px 0 15px;color:#1e293b;letter-spacing:0.5px;width:100%}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;width:100%}
+.cat-card{background:#fff;border-radius:14px;padding:0;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.08);cursor:pointer;transition:0.3s;width:100%}
+.cat-card:hover{transform:translateY(-3px);box-shadow:0 5px 14px rgba(124,58,237,0.25)}
+.cat-card-img{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000}
+.cat-card-img img{width:100%;height:100%;object-fit:cover}
+.cat-card p{padding:8px 4px;font-size:11px;font-weight:600;color:#1d1d1f;line-height:1.3;text-align:center;background:#fff;min-height:36px;display:flex;align-items:center;justify-content:center}
+.special-card{grid-column:span 3;background:#fff;border-radius:14px;padding:12px;box-shadow:0 2px 6px rgba(0,0,0,0.08);cursor:pointer;width:100%}
+.special-card img{width:100%;border-radius:10px}
+.special-card p{text-align:center;font-weight:700;margin-top:8px;font-size:14px}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e5e7eb;display:flex;justify-content:space-around;padding:8px 0;z-index:95}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:#6b7280;font-size:11px;font-weight:600}
+.nav-item.active{color:#7c3aed}
+.nav-item svg{width:24px;height:24px}
+.page{display:none;width:100%}
+.page.active{display:block}
+.back-btn{background:none;border:none;font-size:24px;margin:10px 0;cursor:pointer}
+.product-box{background:#fff;border-radius:14px;padding:15px;margin:15px 0;display:flex;gap:12px;align-items:center}
+.product-box img{width:60px;height:60px;border-radius:10px;object-fit:cover}
+.product-info h3{font-size:18px;font-weight:800}
+.product-info p{font-size:13px;color:#6b7280}
+.step-box{background:#fff;border-radius:14px;padding:15px;margin:15px 0}
+.step-title{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;margin-bottom:12px}
+.step-num{background:#7c3aed;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.pkg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.pkg-card{background:#fff;border:2px solid #e5e7eb;border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;transition:0.2s}
+.pkg-card:hover{border-color:#7c3aed}
+.pkg-card.selected{border-color:#7c3aed;background:#f5f3ff}
+.pkg-card h4{font-size:15px;font-weight:700;color:#1d1d1f;margin-bottom:4px}
+.pkg-card p{font-size:14px;color:#7c3aed;font-weight:700}
+.how-order{color:#10b981;font-size:13px;font-weight:600;margin-top:10px;display:flex;align-items:center;gap:4px;cursor:pointer}
+   .input-wrap{position:relative;width:100%}
+    input{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:10px;font-size:15px;margin:10px 0}
+    input:focus{outline:none;border-color:#7c3aed}
+    input.valid{border-color:#10b981}
+   .verify-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:20px;display:none}
+   .verify-icon.show{display:block}
+   .verify-text{font-size:13px;margin-top:-5px;margin-bottom:10px;display:none}
+   .verify-text.success{color:#10b981;display:block}
+   .verify-text.error{color:#ef4444;display:block}
+.btn{width:100%;padding:16px;background:#7c3aed;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;margin-top:15px}
+.btn:disabled{background:#9ca3af;cursor:not-allowed}
+.notice{background:#fef3c7;border:1px solid #fbbf24;border-radius:12px;padding:12px;margin:15px 0;font-size:13px;line-height:1.6}
+.notice b{color:#d97706}
+.rules-box{background:#fff;border-radius:14px;padding:15px;margin:15px 0}
+.rules-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;margin-bottom:10px}
+.help-btn{position:fixed;bottom:90px;right:15px;background:#ef4444;color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 12px rgba(239,68,68,0.4);cursor:pointer;z-index:94}
+.help-text{position:fixed;bottom:150px;right:15px;background:#ef4444;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600}
+/* Payment Page Styles */
+.pay-header{background:#fff;padding:15px;text-align:center;position:relative}
+.close-x{position:absolute;right:15px;top:15px;font-size:24px;cursor:pointer}
+.wallet-circle{width:80px;height:80px;border:3px solid #e5e7eb;border-radius:50%;margin:20px auto;display:flex;align-items:center;justify-content:center;font-size:40px}
+.wallet-title{text-align:center;font-size:18px;font-weight:700;margin-bottom:20px;color:#1d1d1f}
+.mobile-banking-btn{width:100%;padding:14px;background:#2563eb;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;margin-bottom:20px}
+.payment-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.payment-option{background:#fff;border:2px solid #e5e7eb;border-radius:12px;padding:20px;text-align:center;cursor:pointer;position:relative;transition:0.2s}
+.payment-option.selected{border-color:#7c3aed}
+.payment-option.selected::before{content:'✓';position:absolute;top:-8px;right:-8px;background:#7c3aed;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
+.payment-option img{width:100%;height:50px;object-fit:contain;margin-bottom:8px}
+.payment-option p{font-size:13px;font-weight:600;color:#1d1d1f}
+.pay-footer{position:fixed;bottom:0;left:0;width:100%;background:#e0f2fe;padding:20px;border-top:1px solid #bae6fd}
+.pay-btn{width:100%;padding:16px;background:#3b82f6;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer}
+.pay-btn:disabled{background:#9ca3af;cursor:not-allowed}
+/* Checkout Page */
+.checkout-header{padding:15px;display:flex;justify-content:space-between;align-items:center}
+.checkout-logo{width:150px;height:40px;object-fit:contain;margin:20px auto;display:block}
+.wallet-box{background:#fff;border-radius:12px;padding:15px;margin:15px 0;display:flex;align-items:center;gap:12px}
+.wallet-box img{width:40px;height:40px;border-radius:50%}
+.amount-box{background:#fff;border-radius:12px;padding:20px;margin:15px 0;font-size:24px;font-weight:700;text-align:left}
+.trx-box{background:#d946ef;border-radius:12px;padding:20px;margin:15px 0}
+.trx-title{color:#fff;font-size:18px;font-weight:700;text-align:center;margin-bottom:15px}
+.trx-input{width:100%;padding:14px;border:none;border-radius:10px;font-size:15px;margin-bottom:15px}
+.step-list{color:#fff;font-size:14px;line-height:1.8}
+.step-list li{margin-bottom:10px;display:flex;align-items:flex-start;gap:8px}
+.step-list li::before{content:'•';font-size:20px;line-height:1}
+.copy-box{background:rgba(0,0,0,0.2);padding:8px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;margin-top:5px}
+.copy-btn{background:#fbbf24;color:#000;border:none;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer}
+    </style>
+</head>
+<body>
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page active">
+        <div class="header">
+            <div class="logo">💎 FF <span>BAZAR</span></div>
+            <div class="wallet">
+                <div class="wallet-btn">💳 2৳</div>
+                <div class="profile">E</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="section-title">SPECIAL OFFER</div>
+            <div class="grid">
+                <div class="special-card" onclick="openOrder('special')">
+                    <img src="banner.png" alt="Special">
+                    <p>SPECIAL OFFER</p>
+                </div>
+            </div>
+            <div class="section-title">FREE FIRE</div>
+            <div class="grid">
+                <div class="cat-card" onclick="openOrder('uid')">
+                    <div class="cat-card-img"><img src="notice1.png" alt="UID TOP UP"></div>
+                    <p>UID TOPUP</p>
+                </div>
+                <div class="cat-card" onclick="openOrder('levelup')">
+                    <div class="cat-card-img"><img src="level.jpg" alt="LEVEL UP"></div>
+                    <p>LEVEL UP PASS</p>
+                </div>
+                <div class="cat-card" onclick="openOrder('weekly')">
+                    <div class="cat-card-img"><img src="notice.jpg" alt="WEEKLY"></div>
+                    <p>WEEKLY</p>
+                </div>
+                <div class="cat-card" onclick="openOrder('evo')">
+                    <div class="cat-card-img"><img src="evo.jpg" alt="EVO"></div>
+                    <p>EVO ACCESS</p>
+                </div>
+                <div class="cat-card" onclick="openOrder('monthly')">
+                    <div class="cat-card-img"><img src="monthly.jpg" alt="MONTHLY"></div>
+                    <p>MONTHLY PACK</p>
+                </div>
+                <div class="cat-card" onclick="openOrder('like')">
+                    <div class="cat-card-img"><img src="like.jpg" alt="LIKE"></div>
+                    <p>LIKE BOT</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER PAGE -->
+    <div id="orderPage" class="page">
+        <div class="header">
+            <button class="back-btn" onclick="goHome()">←</button>
+            <div class="logo">💎 FF <span>BAZAR</span></div>
+            <div class="profile">E</div>
+        </div>
+        <div class="container">
+            <div class="product-box">
+                <img id="orderImg" src="" alt="">
+                <div class="product-info">
+                    <h3 id="orderName">Package Name</h3>
+                    <p>Game / Top up</p>
+                </div>
+            <div class="step-box">
+                <div class="step-title"><span class="step-num">1</span> Select Recharge</div>
+                <div class="pkg-grid" id="rechargeList"></div>
+                <div class="how-order">📤 কিভাবে অর্ডার করবেন? →</div>
+            </div>
+            <div class="step-box">
+                <div class="step-title"><span class="step-num">2</span> Account Info</div>
+                <p style="font-size:14px;color:#6b7280;margin-bottom:8px">এখানে গেমের আইডি কোড দিন</p>
+                <div class="input-wrap">
+                    <input type="number" placeholder="এখানে গেমের আইডি কোড দিন" id="uidInput" oninput="verifyUID()">
+                    <span class="verify-icon" id="verifyIcon">✓</span>
+                </div>
+                <div class="verify-text" id="verifyText"></div>
+            </div>
+            <button class="btn" id="buyBtn" onclick="goToPayment()" disabled>Buy Now</button>
+            <div class="notice">
+                <b>⚠️ Notice:</b> ১৮ বছরের নিচে কেউ অর্ডার করবেন না! ফ্যামিলির টাকা চুরি করে অর্ডার করলে আইনগত ব্যবস্থা নেওয়া হবে। ডেলিভারি 5-30 মিনিটের মধ্যে।
+            </div>
+            <div class="rules-box">
+                <div class="rules-title">📖 Rules & Conditions</div>
+                <p style="font-size:13px;color:#6b7280;line-height:1.6">⭕ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে। অন্য সার্ভারে হবে না।</p>
+            </div>
+        </div>
+        <div class="help-text">সাহায্য লাগবে?</div>
+        <div class="help-btn">📞</div>
+    </div>
+
+    <!-- PAYMENT PAGE -->
+    <div id="paymentPage" class="page">
+        <div class="pay-header">
+            <span class="close-x" onclick="backToOrder()">×</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0">
+                <span style="font-size:24px">🏠</span>
+                <div>
+                    <span style="font-size:20px">A</span>
+                    <span style="font-size:20px;margin-left:10px">×</span>
+                </div>
+            </div>
+        <div class="container">
+            <div class="wallet-circle">💳</div>
+            <div class="wallet-title">Wallet</div>
+            <button class="mobile-banking-btn">Mobile Banking</button>
+            <div class="payment-grid">
+                <div class="payment-option" onclick="selectPayment(this,'bkash')">
+                    <img src="https://logos-world.net/wp-content/uploads/2023/05/bKash-Logo.png" alt="bKash">
+                    <p>bKash</p>
+                </div>
+                <div class="payment-option" onclick="selectPayment(this,'nagad')">
+                    <img src="https://logos-world.net/wp-content/uploads/2023/05/Nagad-Logo.png" alt="Nagad">
+                    <p>নগদ</p>
+                </div>
+            </div>
+        <div class="pay-footer">
+            <button class="pay-btn" id="payBtn" onclick="processPay()" disabled>Pay <span id="payAmount">0.00</span></button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT PAGE -->
+    <div id="checkoutPage" class="page">
+        <div class="checkout-header">
+            <span onclick="backToPayment()" style="font-size:24px;cursor:pointer">←</span>
+            <span onclick="goHome()" style="font-size:24px;cursor:pointer">×</span>
+        </div>
+        <div class="container">
+            <img id="checkoutLogo" class="checkout-logo" src="https://logos-world.net/wp-content/uploads/2023/05/bKash-Logo.png" alt="bKash">
+            <div class="wallet-box">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23e5e7eb'/%3E%3Ctext x='50' y='65' text-anchor='middle' font-size='40'%3E💳%3C/text%3E%3C/svg%3E" alt="Wallet">
+                <span style="font-weight:700;font-size:16px">Wallet</span>
+            </div>
+            <div class="amount-box">৳ <span id="checkoutAmount">88</span></div>
+            <div class="trx-box">
+                <div class="trx-title">ট্রানজেকশন আইডি দিন</div>
+                <input type="text" class="trx-input" placeholder="ট্রানজেকশন আইডি দিন" id="trxId">
+                <ul class="step-list">
+                    <li id="step1">*247# ডায়াল করে আপনার bKash মোবাইল মেনুতে যান অথবা bKash অ্যাপে যান।</li>
+                    <li><span style="color:#fbbf24;font-weight:700">"Send Money"</span> -এ ক্লিক করুন।</li>
+                    <li>প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুনঃ
+                        <div class="copy-box">
+                            <span style="color:#fbbf24;font-weight:700" id="merchantNumber">01873786543</span>
+                            <button class="copy-btn" onclick="copyNumber()">📋 Copy</button>
+                        </div>
+                    </li>
+                    <li>টাকার পরিমাণঃ <span style="color:#fbbf24;font-weight:700" id="trxAmount">88</span></li>
+                    <li id="step5">নিশ্চিত করতে এখন আপনার bKash মোবাইল মেনু পিন লিখুন।</li>
+                    <li id="step6">সবকিছু ঠিক থাকলে, আপনি bKash থেকে একটি</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</div>
+        <div class="nav-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>Add Money</div>
+        <div class="nav-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2.9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1.45 1 1s-.45 1-1-.45-1-1.45-1 1-1zm0 13c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>My Orders</div>
+        <div class="nav-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>My Codes</div>
+        <div class="nav-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>My Account</div>
+    </div>
+
+    <script>
+    const packages = {
+        uid: [
+            {name:'25 Diamond', price:'24৳'},
+            {name:'50 Diamond', price:'38৳'},
+            {name:'115 Diamond', price:'79৳'},
+            {name:'240 Diamond', price:'158৳'},
+            {name:'355 Diamond', price:'238৳'},
+            {name:'480 Diamond', price:'316৳'},
+            {name:'610 Diamond', price:'405৳'},
+            {name:'850 Diamond', price:'560৳'},
+            {name:'1240 Diamond', price:'799৳'},
+            {name:'2530 Diamond', price:'1595৳'},
+            {name:'5060 Diamond', price:'3190৳'},
+            {name:'10120 Diamond', price:'6350৳'}
+        ],
+        levelup: [
+            {name:'Level 6', price:'40৳'},
+            {name:'Level 10', price:'70৳'},
+            {name:'Level 15', price:'70৳'},
+            {name:'Level 20', price:'70৳'},
+            {name:'Level 25', price:'70৳'},
+            {name:'Level 30', price:'100৳'},
+            {name:'Full Level Up', price:'400৳'}
+        ],
+        weekly: [
+            {name:'1X Weekly Lite', price:'44৳'},
+            {name:'2X Weekly Lite', price:'88৳'},
+            {name:'3X Weekly Lite', price:'130৳'},
+            {name:'5X Weekly Lite', price:'210৳'},
+            {name:'WEEKLY', price:'154৳'},
+            {name:'2X WEEKLY', price:'308৳'},
+            {name:'3X WEEKLY', price:'460৳'},
+            {name:'1WEEKLY+1MONTHLY', price:'915৳'},
+            {name:'3WEEKLY+1MONTHLY', price:'1220৳'}
+        ],
+        monthly: [
+            {name:'MONTHLY', price:'765৳'},
+            {name:'2X MONTHLY', price:'1530৳'}
+        ],
+        evo: [
+            {name:'3 Days Evo', price:'65৳'},
+            {name:'7 Days Evo', price:'99৳'},
+            {name:'14 Days Evo', price:'200৳'},
+            {name:'30 Days Evo', price:'299৳'}
+        ],
+        like: [
+            {name:'200 FF LIKE Daily', price:'35৳'}
+        ],
+        special: [
+            {name:'WEEKLY', price:'154৳'},
+            {name:'MONTHLY', price:'765৳'}
+        ]
+    };
+
+    let selectedPkg = '';
+    let selectedPrice = 0;
+    let selectedPayment = '';
+    let uidValid = false;
+
+    function showPage(pageId){
+        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function goHome(){showPage('homePage')}
+    function backToOrder(){showPage('orderPage')}
+    function backToPayment(){showPage('paymentPage')}
+
+    function openOrder(cat){
+        const titles = {uid:'UID TOP UP',levelup:'LEVEL UP PASS',weekly:'WEEKLY PACK',monthly:'MONTHLY PACK',evo:'E-Badge/Evo Access',like:'FF LIKE',special:'SPECIAL OFFER'};
+        const imgMap = {
+            uid:'notice1.png',
+            levelup:'level.jpg',
+            weekly:'notice.jpg',
+            monthly:'monthly.jpg',
+            evo:'evo.jpg',
+            like:'like.jpg',
+            special:'banner.png'
+        };
+
+        document.getElementById('orderName').innerText = titles[cat];
+        document.getElementById('orderImg').src = imgMap[cat];
+
+        const list = document.getElementById('rechargeList');
+        list.innerHTML = '';
+        packages[cat].forEach((pkg,i)=>{
+            list.innerHTML += `<div class="pkg-card ${i===0?'selected':''}" onclick="selectPkg(this,'${pkg.name}','${pkg.price}')"><h4>${pkg.name}</h4><p>${pkg.price}</p></div>`;
+        });
+        selectedPkg = packages[cat][0].name;
+        selectedPrice = parseFloat(packages[cat][0].price.replace('৳',''));
+        resetUID();
+        showPage('orderPage');
+    }
+
+    function selectPkg(el,name,price){
+        document.querySelectorAll('#rechargeList.pkg-card').forEach(c=>c.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedPkg = name;
+        selectedPrice = parseFloat(price.replace('৳',''));
+    }
+
+    function resetUID(){
+        document.getElementById('uidInput').value = '';
+        document.getElementById('uidInput').classList.remove('valid');
+        document.getElementById('verifyIcon').classList.remove('show');
+        document.getElementById('verifyText').className = 'verify-text';
+        document.getElementById('buyBtn').disabled = true;
+        uidValid = false;
+    }
+
+    function verifyUID(){
+        const uid = document.getElementById('uidInput').value;
+        const icon = document.getElementById('verifyIcon');
+        const text = document.getElementById('verifyText');
+        const input = document.getElementById('uidInput');
+        const btn = document.getElementById('buyBtn');
+
+        if(uid.length >= 8 && uid.length <= 12 && /^\d+$/.test(uid)){
+            input.classList.add('valid');
+            icon.classList.add('show');
+            icon.innerText = '✓';
+            icon.style.color = '#10b981';
+            text.className = 'verify-text success';
+            text.innerText = '✓ UID ভেরিফাইড';
+            btn.disabled = false;
+            uidValid = true;
+        } else if(uid.length > 0){
+            input.classList.remove('valid');
+            icon.classList.add('show');
+            icon.innerText = '✗';
+            icon.style.color = '#ef4444';
+            text.className = 'verify-text error';
+            text.innerText = '✗ সঠিক UID দিন (8-12 সংখ্যা)';
+            btn.disabled = true;
+            uidValid = false;
+        } else {
+            resetUID();
+        }
+    }
+
+    function goToPayment(){
+        if(!uidValid){
+            alert('সঠিক UID দিন');
+            return;
+        }
+        document.getElementById('payAmount').innerText = selectedPrice.toFixed(2);
+        document.getElementById('payBtn').disabled = true;
+        selectedPayment = '';
+        document.querySelectorAll('.payment-option').forEach(p=>p.classList.remove('selected'));
+        showPage('paymentPage');
+    }
+
+    function selectPayment(el,type){
+        document.querySelectorAll('.payment-option').forEach(p=>p.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedPayment = type;
+        document.getElementById('payBtn').disabled = false;
+    }
+
+    function processPay(){
+        if(!selectedPayment){
+            alert('পেমেন্ট মেথড সিলেক্ট করুন');
+            return;
+        }
+        document.getElementById('checkoutAmount').innerText = selectedPrice;
+        document.getElementById('trxAmount').innerText = selectedPrice;
+
+        if(selectedPayment === 'bkash'){
+            document.getElementById('checkoutLogo').src = 'https://logos-world.net/wp-content/uploads/2023/05/bKash-Logo.png';
+            document.getElementById('step1').innerHTML = '*247# ডায়াল করে আপনার bKash মোবাইল মেনুতে যান অথবা bKash অ্যাপে যান।';
+            document.getElementById('step5').innerHTML = 'নিশ্চিত করতে এখন আপনার bKash মোবাইল মেনু পিন লিখুন।';
+            document.getElementById('step6').innerHTML = 'সবকিছু ঠিক থাকলে, আপনি bKash থেকে একটি';
+        } else {
+            document.getElementById('checkoutLogo').src = 'https://logos-world.net/wp-content/uploads/2023/05/Nagad-Logo.png';
+            document.getElementById('step1').innerHTML = '*167# ডায়াল করে আপনার Nagad মোবাইল মেনুতে যান অথবা Nagad অ্যাপে যান।';
+            document.getElementById('step5').innerHTML = 'নিশ্চিত করতে এখন আপনার Nagad মোবাইল মেনু পিন লিখুন।';
+            document.getElementById('step6').innerHTML = 'সবকিছু ঠিক থাকলে, আপনি Nagad থেকে একটি';
+        }
+
+        showPage('checkoutPage');
+    }
+
+    function copyNumber(){
+        const num = document.getElementById('merchantNumber').innerText;
+        navigator.clipboard.writeText(num);
+        alert('নাম্বার কপি হয়েছে: ' + num);
+    }
+    </script>
+
+</body>
+</html>
