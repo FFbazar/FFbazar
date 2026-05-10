@@ -1,0 +1,241 @@
+Enable compact line height
+Dismiss
+
+‎index.html‎
+
++240
+Lines changed: 240 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FF Bazar - FF Diamond Store</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri',sans-serif}
+body{background:#f8f9fa;color:#1d1d1f;min-height:100vh;padding-bottom:140px}
+.header{background:#fff;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);position:sticky;top:0;z-index:100}
+.logo{font-size:20px;font-weight:700;color:#1d1d1f;display:flex;align-items:center;gap:6px}
+.logo span{color:#7c3aed}
+.header-right{display:flex;gap:8px;align-items:center}
+.profile{width:32px;height:32px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.container{max-width:500px;margin:0 auto;padding:0 12px}
+.notice-wrapper{background:#5b21b6;margin:0 -12px 15px -12px;padding:15px;position:relative}
+.notice-wrapper h3{color:#fff;font-size:20px;font-weight:700;margin-bottom:8px}
+.notice-wrapper p{color:#fff;font-size:13px;line-height:1.5}
+.notice-close{position:absolute;top:12px;right:12px;color:#fff;font-size:24px;cursor:pointer;background:none;border:none}
+.slider-banner{margin:15px 0;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.slider-banner img{width:100%;height:auto;display:block}
+.dots{display:flex;justify-content:center;gap:6px;margin:12px 0}
+.dot{width:20px;height:4px;background:#d1d5db;border-radius:2px}
+.dot.active{background:#1d1d1f}
+.section-title{text-align:center;font-size:20px;font-weight:800;margin:25px 0 15px;color:#1e293b;letter-spacing:0.5px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.cat-card{background:#fff;border-radius:14px;padding:0;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.08);cursor:pointer;transition:0.3s}
+.cat-card:hover{transform:translateY(-3px);box-shadow:0 5px 14px rgba(124,58,237,0.25)}
+.cat-card-img{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cat-card-img img{width:100%;height:100%;object-fit:cover}
+.cat-card p{padding:6px 4px;font-size:10px;font-weight:600;color:#1d1d1f;line-height:1.3;text-align:center;background:#fff;min-height:32px;display:flex;align-items:center;justify-content:center}
+.install-banner{position:fixed;bottom:60px;left:0;width:100%;background:#5b21b6;padding:12px 15px;display:flex;align-items:center;justify-content:space-between;z-index:90;color:#fff}
+.install-left{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600}
+.install-btn{background:#fff;color:#5b21b6;border:none;padding:8px 20px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px}
+.install-close{color:#fff;font-size:20px;cursor:pointer;background:none;border:none;margin-left:10px}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e5e7eb;display:flex;justify-content:space-around;padding:8px 0;z-index:95}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:#6b7280;font-size:11px;font-weight:600}
+.nav-item.active{color:#1d1d1f}
+.nav-item svg{width:24px;height:24px}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center;padding:15px}
+.modal-content{background:#fff;width:100%;max-width:400px;border-radius:20px;max-height:90vh;overflow-y:auto}
+.close-btn{float:right;font-size:28px;font-weight:300;color:#6b7280;cursor:pointer;border:none;background:none;padding:10px 15px 0 0}
+.step-box{background:#fff;border-radius:16px;padding:15px;margin:15px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.step-title{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;color:#1d1d1f;margin-bottom:12px}
+.step-num{background:#7c3aed;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.pkg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.pkg-card{background:#fff;border:2px solid #e5e7eb;border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:0.2s}
+.pkg-card:hover{border-color:#7c3aed;transform:translateY(-2px)}
+.pkg-card.selected{border-color:#7c3aed;background:#f5f3ff}
+.pkg-card h4{font-size:13px;font-weight:700;color:#1d1d1f;margin-bottom:4px;line-height:1.3}
+.pkg-card p{font-size:14px;color:#7c3aed;font-weight:700}
+input{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:10px;font-size:15px;margin:10px 0}
+input:focus{outline:none;border-color:#7c3aed}
+.btn{width:100%;padding:16px;background:#7c3aed;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;margin-top:10px}
+.btn:hover{background:#6d28d9}
+.banner-main{width:100%;height:auto;border-radius:12px;margin-bottom:15px;overflow:hidden;position:relative}
+.banner-main img{width:100%;height:auto;display:block;border-radius:12px}
+.payment-option{display:flex;align-items:center;gap:12px;padding:12px;border:2px solid #e5e7eb;border-radius:12px;margin:8px 0;cursor:pointer;transition:0.2s}
+.payment-option:hover{border-color:#7c3aed;background:#f5f3ff}
+.payment-option img{width:40px;height:40px;object-fit:contain}
+.payment-option.active{border-color:#7c3aed;background:#f5f3ff}
+/* পেমেন্ট মডাল কমন CSS */
+.payment-modal-header{background:#fff;padding:15px;text-align:center;border-radius:20px 20px 0 0}
+.payment-modal-header img{height:35px;margin:5px auto}
+.wallet-box{background:#fff;margin:10px 15px;border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.wallet-box img{width:32px;height:32px}
+.amount-box{background:#fff;margin:10px 15px;border-radius:12px;padding:15px;font-size:22px;font-weight:700;color:#1d1d1f}
+.instruction-box{margin:10px 15px 20px 15px;border-radius:12px;padding:18px;color:#fff}
+.instruction-box h3{text-align:center;font-size:18px;font-weight:700;margin-bottom:12px}
+.instruction-box input{border:none;margin:0 0 15px 0;text-align:center;font-weight:600}
+.instruction-list{font-size:14px;line-height:1.8}
+.instruction-list li{margin-bottom:12px;list-style:none;position:relative;padding-left:15px;border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px}
+.instruction-list li:last-child{border-bottom:none}
+.instruction-list li:before{content:"•";position:absolute;left:0;font-size:18px}
+.copy-row{display:flex;align-items:center;justify-content:space-between;margin:8px 0}
+.copy-btn{background:rgba(255,255,255,0.2);border:1px solid #fff;color:#fff;padding:4px 12px;border-radius:6px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px}
+.copy-btn:active{background:rgba(255,255,255,0.3)}
+.highlight{color:#FFD700;font-weight:700}
+.verify-btn{background:#fff;width:calc(100% - 30px);margin:0 15px 20px 15px;padding:16px;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer}
+/* বিকাশ, নগদ আলাদা কালার */
+.bkash-bg{background:#E2136E}
+.bkash-btn{color:#E2136E}
+.nagad-bg{background:#F42F2D}
+.nagad-btn{color:#F42F2D}
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">FF <span>Bazar</span></div>
+    <div class="header-right">
+        <div class="profile">U</div>
+    </div>
+</div>
+<div class="container">
+    <div class="banner-main">
+        <img src="banner.png" alt="Special Offer Banner">
+    </div>
+    <div class="step-box">
+        <div class="step-title">
+            <div class="step-num">2</div>
+            পেমেন্ট মেথড সিলেক্ট করুন
+        </div>
+        <div class="payment-option" onclick="openPaymentModal('bkash')">
+            <img src="bkash-logo.png" alt="bKash">
+            <span>বিকাশ</span>
+        </div>
+        <div class="payment-option" onclick="openPaymentModal('nagad')">
+            <img src="nagad-logo.png" alt="Nagad">
+            <span>নগদ</span>
+        </div>
+    </div>
+</div>
+<!-- পেমেন্ট মডাল -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <div class="payment-modal-header">
+            <img id="modalLogo" src="" alt="Logo">
+        </div>
+        <div class="wallet-box">
+            <img src="wallet-icon.png" alt="Wallet">
+            <span>Wallet</span>
+        </div>
+        <div class="amount-box">
+            ৳ <span id="payAmount">130</span>
+        </div>
+        <div id="instructionBox" class="instruction-box">
+            <h3>ট্রান্সজেকশন আইডি দিন</h3>
+            <input type="text" placeholder="ট্রান্সজেকশন আইডি দিন" id="trxId">
+            <ul class="instruction-list" id="instructionList"></ul>
+        </div>
+        <button class="verify-btn" id="verifyBtn" onclick="submitTrx()">VERIFY</button>
+    </div>
+</div>
+<script>
+let selectedAmount = 130; // তোমার প্যাকেজের দাম এখানে বসবে
+const paymentData = {
+    bkash: {
+        name: 'bKash',
+        logo: 'bkash-logo.png',
+        colorClass: 'bkash-bg',
+        btnClass: 'bkash-btn',
+        dial: '*247#',
+        number: '01876786543', // তোমার বিকাশ নম্বর
+        steps: [
+            '*247# ডায়াল করে আপনার bKash মোবাইল মেনুতে যান অথবা bKash অ্যাপে যান।',
+            '"Send Money" -এ ক্লিক করুন।',
+            'প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুনঃ',
+            'টাকার পরিমাণঃ',
+            'নিশ্চিত করতে এখন আপনার bKash মোবাইল মেনু পিন লিখুন।',
+            'সবকিছু ঠিক থাকলে, আপনি bKash থেকে একটি কনফার্মেশন পাবেন।',
+            'এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের VERIFY বাটনে ক্লিক করুন।'
+        ]
+    },
+    nagad: {
+        name: 'Nagad',
+        logo: 'nagad-logo.png',
+        colorClass: 'nagad-bg',
+        btnClass: 'nagad-btn',
+        dial: '*167#',
+        number: '01876786543', // তোমার নগদ নম্বর
+        steps: [
+            '*167# ডায়াল করে আপনার Nagad মোবাইল মেনুতে যান অথবা Nagad অ্যাপে যান।',
+            '"Send Money" -এ ক্লিক করুন।',
+            'প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুনঃ',
+            'টাকার পরিমাণঃ',
+            'নিশ্চিত করতে এখন আপনার Nagad মোবাইল মেনু পিন লিখুন।',
+            'সবকিছু ঠিক থাকলে, আপনি Nagad থেকে একটি নিশ্চিতকরণ বার্তা পাবেন।',
+            'এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের VERIFY বাটনে ক্লিক করুন।'
+        ]
+    }
+};
+function openPaymentModal(method) {
+    const data = paymentData[method];
+    document.getElementById('modalLogo').src = data.logo;
+    document.getElementById('payAmount').innerText = selectedAmount;
+    document.getElementById('instructionBox').className = 'instruction-box ' + data.colorClass;
+    document.getElementById('verifyBtn').className = 'verify-btn ' + data.btnClass;
+    let listHtml = '';
+    data.steps.forEach((step, i) => {
+        if(i === 2) {
+            listHtml += `<li>${step}
+                <div class="copy-row">
+                    <span class="highlight">${data.number}</span>
+                    <button class="copy-btn" onclick="copyNumber('${data.number}')">
+                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1.5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1.5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 0 0 0 6.5 4h3A1.5 0 0 0 11 2.5v-1A1.5 0 0 0 9.5 0h-3z"/></svg>
+                        Copy
+                    </button>
+                </div>
+            </li>`;
+        } else if(i === 3) {
+            listHtml += `<li>${step} <span class="highlight">${selectedAmount}</span></li>`;
+        } else {
+            listHtml += `<li>${step}</li>`;
+        }
+    });
+    document.getElementById('instructionList').innerHTML = listHtml;
+    document.getElementById('paymentModal').style.display = 'flex';
+}
+function closeModal() {
+    document.getElementById('paymentModal').style.display = 'none';
+    document.getElementById('trxId').value = '';
+}
+function copyNumber(number) {
+    navigator.clipboard.writeText(number).then(() => {
+        alert('নম্বর কপি হয়েছে: ' + number);
+    });
+}
+function submitTrx() {
+    let trx = document.getElementById('trxId').value;
+    if(trx.length < 8) {
+        alert('সঠিক ট্রান্সজেকশন আইডি দিন');
+        return;
+    }
+    alert('আপনার ট্রান্সজেকশন আইডি: ' + trx + ' সাবমিট হয়েছে। ভেরিফাই করা হচ্ছে...');
+    closeModal();
+}
+window.onclick = function(event) {
+    let modal = document.getElementById('paymentModal');
+    if (event.target == modal) closeModal();
+}
+</script>
+</body>
+</html>
+0 commit comments
+Comments
+0
+ (0)
+Lock conversation
+Comment
+Subscribe
+You're not receiving notifications from this thread.
