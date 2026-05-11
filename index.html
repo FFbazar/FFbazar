@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FF Bazar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Hind Siliguri',sans-serif;
+}
+
+body{
+    background:#f4f5f7;
+    padding:15px;
+    color:#111;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(135deg,#ff0077,#6a00ff);
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    color:#fff;
+    margin-bottom:18px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+.header h1{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.header p{
+    font-size:14px;
+}
+
+/* PAYMENT */
+
+.payment-box{
+    background:#fff;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+.payment-title{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.payment-methods{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.method{
+    flex:1;
+    min-width:100px;
+    background:#f7f7f7;
+    border-radius:12px;
+    padding:12px;
+    text-align:center;
+    font-weight:700;
+}
+
+.bkash{
+    color:#e2136e;
+}
+
+.nagad{
+    color:#f97316;
+}
+
+.rocket{
+    color:#7c3aed;
+}
+
+/* PACKAGES */
+
+.packages{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:12px;
+}
+
+.card h3{
+    font-size:18px;
+    margin-bottom:6px;
+}
+
+.price{
+    color:#6a00ff;
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.buy-btn{
+    width:100%;
+    padding:11px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#ff0077,#6a00ff);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* TXID */
+
+.verify-box{
+    margin-top:25px;
+    background:#fff;
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.verify-box h2{
+    margin-bottom:15px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    margin-bottom:12px;
+    font-size:15px;
+}
+
+.verify-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#16a34a;
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    color:#777;
+    font-size:14px;
+}
+
+@media(max-width:600px){
+
+    .packages{
+        grid-template-columns:1fr;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+    <h1>FF Bazar</h1>
+    <p>Fast & Trusted Diamond Top Up</p>
+</div>
+
+<!-- PAYMENT -->
+
+<div class="payment-box">
+
+    <div class="payment-title">
+        Payment Methods
+    </div>
+
+    <div class="payment-methods">
+
+        <div class="method bkash">
+            bKash<br>
+            01873786543
+        </div>
+
+        <div class="method nagad">
+            Nagad<br>
+            01873786543
+        </div>
+
+        <div class="method rocket">
+            Rocket<br>
+            01873786543
+        </div>
+
+    </div>
+
+</div>
+
+<!-- PACKAGES -->
+
+<div class="packages">
+
+    <!-- 1 -->
+
+    <div class="card">
+        <img src="package1.jpg">
+        <div class="card-content">
+            <h3>25 Diamond</h3>
+            <div class="price">৳25</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- 2 -->
+
+    <div class="card">
+        <img src="package2.jpg">
+        <div class="card-content">
+            <h3>50 Diamond</h3>
+            <div class="price">৳45</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- 3 -->
+
+    <div class="card">
+        <img src="package3.jpg">
+        <div class="card-content">
+            <h3>115 Diamond</h3>
+            <div class="price">৳90</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- 4 -->
+
+    <div class="card">
+        <img src="package4.jpg">
+        <div class="card-content">
+            <h3>240 Diamond</h3>
+            <div class="price">৳185</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- 5 -->
+
+    <div class="card">
+        <img src="package5.jpg">
+        <div class="card-content">
+            <h3>Weekly</h3>
+            <div class="price">৳160</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- 6 -->
+
+    <div class="card">
+        <img src="package6.jpg">
+        <div class="card-content">
+            <h3>Monthly</h3>
+            <div class="price">৳760</div>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- VERIFY -->
+
+<div class="verify-box">
+
+    <h2>Payment Verify</h2>
+
+    <input type="text" id="txid" placeholder="Enter TXID">
+
+    <button class="verify-btn" onclick="verifyTXID()">
+        Verify Payment
+    </button>
+
+</div>
+
+<div class="footer">
+    © 2026 FF Bazar - All Rights Reserved
+</div>
+
+<script>
+
+function verifyTXID(){
+
+    let txid = document.getElementById("txid").value;
+
+    if(txid.length >= 8){
+
+        alert("✅ Payment Verified Successfully");
+
+    }else{
+
+        alert("❌ Invalid TXID");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
