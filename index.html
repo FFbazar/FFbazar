@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FF Bazar - FF Diamond Store</title>
+  <link rel="icon" type="image/png" href="ffbazar-logo.png">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri',sans-serif} 
+    body{background:#f8f9fa;color:#1d1d1f;min-height:100vh;padding-bottom:140px} 
+    .top-banner{width:100%;margin:0;padding:0}
+    .top-banner img{width:100%;height:auto;display:block;max-height:220px;object-fit:cover}
+    @media (max-width:768px){
+      .top-banner img{max-height:160px}
+    }
+    .header{background:#fff;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);position:sticky;top:0;z-index:100} 
+    .logo{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700;color:#1d1d1f}
+    .logo img{width:38px;height:38px;object-fit:contain}
+    .logo span{color:#7c3aed} 
+    .header-right{display:flex;gap:8px;align-items:center} 
+    .profile{width:32px;height:32px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px} 
+    .container{max-width:500px;margin:0 auto;padding:0 12px} 
+    .notice-wrapper{background:#5b21b6;margin:0 -12px 15px -12px;padding:15px;position:relative} 
+    .notice-wrapper h3{color:#fff;font-size:20px;font-weight:700;margin-bottom:8px} 
+    .notice-wrapper p{color:#fff;font-size:13px;line-height:1.5} 
+    .notice-close{position:absolute;top:12px;right:12px;color:#fff;font-size:24px;cursor:pointer;background:none;border:none} 
+    .live-notice{margin:12px 0;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+    .live-notice img{width:100%;height:auto;display:block}
+    .slider-banner{margin:15px 0;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1)} 
+    .slider-banner img{width:100%;height:auto;display:block} 
+    .dots{display:flex;justify-content:center;gap:6px;margin:12px 0} 
+    .dot{width:20px;height:4px;background:#d1d5db;border-radius:2px} 
+    .dot.active{background:#1d1d1f} 
+    .section-title{text-align:center;font-size:20px;font-weight:800;margin:25px 0 15px;color:#1e293b;letter-spacing:0.5px} 
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px} 
+    .cat-card{background:#fff;border-radius:14px;padding:0;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.08);cursor:pointer;transition:0.3s} 
+    .cat-card:hover{transform:translateY(-3px);box-shadow:0 5px 14px rgba(124,58,237,0.25)} 
+    .cat-card-img{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;overflow:hidden} 
+    .cat-card-img img{width:100%;height:100%;object-fit:cover} 
+    .cat-card p{padding:6px 4px;font-size:10px;font-weight:600;color:#1d1d1f;line-height:1.3;text-align:center;background:#fff;min-height:32px;display:flex;align-items:center;justify-content:center} 
+    .install-banner{position:fixed;bottom:60px;left:0;width:100%;background:#5b21b6;padding:12px 15px;display:flex;align-items:center;justify-content:space-between;z-index:90;color:#fff} 
+    .install-left{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600} 
+    .install-btn{background:#fff;color:#5b21b6;border:none;padding:8px 20px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px} 
+    .install-close{color:#fff;font-size:20px;cursor:pointer;background:none;border:none;margin-left:10px} 
+    .bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e5e7eb;display:flex;justify-content:space-around;padding:8px 0;z-index:95} 
+    .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:#6b7280;font-size:11px;font-weight:600} 
+    .nav-item.active{color:#1d1d1f} 
+    .nav-item svg{width:24px;height:24px} 
+    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center} 
+    .modal-content{background:#fff;width:90%;max-width:400px;border-radius:20px;padding:20px;max-height:90vh;overflow-y:auto;position:relative}
+    .modal.show{display:flex}
+    .close-btn{position:absolute;top:10px;right:15px;font-size:28px;font-weight:300;color:#6b7280;cursor:pointer;border:none;background:none} 
+    .modal-title{font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:15px;text-align:center}
+    .step-box{background:#fff;border-radius:16px;padding:15px;margin:15px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)} 
+    .step-title{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;color:#1d1d1f;margin-bottom:12px} 
+    .step-num{background:#7c3aed;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700} 
+    .pkg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px} 
+    .pkg-card{background:#fff;border:2px solid #e5e7eb;border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;transition:0.2s} 
+    .pkg-card:hover{border-color:#7c3aed;transform:translateY(-2px)} 
+    .pkg-card.selected{border-color:#7c3aed;background:#f5f3ff} 
+    .pkg-card h4{font-size:15px;font-weight:700;color:#1d1d1f;margin-bottom:4px} 
+    .pkg-card p{font-size:14px;color:#7c3aed;font-weight:700} 
+    input{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:10px;font-size:15px;margin:10px 0} 
+    input:focus{outline:none;border-color:#7c3aed} 
+    .btn{width:100%;padding:16px;background:#7c3aed;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;margin-top:10px} 
+    .btn:hover{background:#6d28d9} 
+    .success-box{text-align:center;padding:20px 0}
+    .success-icon{width:70px;height:70px;background:#10b981;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:40px;color:#fff}
+    .success-title{font-size:20px;font-weight:700;color:#10b981;margin-bottom:8px}
+    .success-text{font-size:14px;color:#374151;line-height:1.6}
+    .order-id{background:#f3f4f6;padding:10px;border-radius:8px;margin:15px 0;font-weight:700;color:#1d1d1f}
+    .banner-main{width:100%;height:100px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:12px;margin-bottom:15px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700}
+    .buy-now-btn{width:100%;padding:16px;background:#7c3aed;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;margin-top:10px}
+    .ff-notice{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:15px 0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+    .ff-notice-item{display:flex;gap:12px;margin-bottom:14px;line-height:1.6}
+    .ff-notice-item:last-child{margin-bottom:0}
+    .ff-notice-icon{flex-shrink:0;font-size:18px;font-weight:700;margin-top:2px}
+    .ff-notice-icon.check{color:#10b981}
+    .ff-notice-icon.cross{color:#ef4444}
+    .ff-notice-text{font-size:13px;color:#374151}
+    .ff-notice-text b{color:#111827}
+    .ff-notice-logo{text-align:center;margin:20px 0 10px}
+    .ff-notice-logo img{width:140px;height:auto}
+    .ff-notice-about{font-size:13px;color:#374151;line-height:1.7}
+    .ff-notice-about b{color:#111827}
+  </style>
+</head>
+<body>
+
+<!-- FFbazar Top Banner -->
+<div class="top-banner">
+  <img src="banner.jpg" alt="FFbazar - দামে কম, মানে সেরা">
+</div>
+
+<div class="header">
+  <div class="logo">
+    <img src="ffbazar-logo.png" alt="FF BAZAR Logo">
+    FF<span>Bazar</span>
+  </div>
+  <div class="header-right">
+    <div class="profile">U</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="notice-wrapper">
+    <button class="notice-close" onclick="this.parentElement.style.display='none'">&times;</button>
+    <h3>নোটিশ</h3>
+    <p>FFbazar-এ স্বাগতম! দ্রুত ডেলিভারি, নিরাপদ পেমেন্ট।</p>
+  </div>
+
+  <!-- Live Notice 1 - PNG -->
+  <div class="live-notice">
+    <img src="notice1.png" alt="Live Notice 1">
+  </div>
+
+  <!-- Live Notice 2 - PNG -->
+  <div class="live-notice">
+    <img src="notice2.png" alt="Live Notice 2">
+  </div>
+
+  <div class="slider-banner">
+    <img src="slider1.jpg" alt="Banner">
+  </div>
+  
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <div class="section-title">SPECIAL OFFER</div>
+  
+  <div class="grid">
+    <div class="cat-card">
+      <div class="cat-card-img">
+        <img src="item1.jpg" alt="Item">
+      </div>
+      <p>UID TOP UP</p>
+    </div>
+    <div class="cat-card">
+      <div class="cat-card-img">
+        <img src="item2.jpg" alt="Item">
+      </div>
+      <p>LEVEL UP PASS</p>
+    </div>
+    <div class="cat-card">
+      <div class="cat-card-img">
+        <img src="item3.jpg" alt="Item">
+      </div>
+      <p>WEEKLY</p>
+    </div>
+  </div>
+
+  <button class="buy-now-btn" onclick="openOrderModal()">Buy Now</button>
+  
+  <div class="ff-notice">
+    <div class="ff-notice-item">
+      <div class="ff-notice-icon check">✓</div>
+      <div class="ff-notice-text">
+        <b>শুধু Bangladesh সার্ভারের ID Code</b> দিয়ে টপ আপ হবে।<br>
+        অন্য সার্ভারের আইডি দিলে টপ-আপ হবে না।
+      </div>
+    <div class="ff-notice-item">
+      <div class="ff-notice-icon check">✓</div>
+      <div class="ff-notice-text">
+        যদি <b>Player ID Code ভুল দেন</b>, ডায়মন্ড না গেলে তার দায় <b>FFbazar</b> নেবে না।<br>
+        অর্ডার দেওয়ার আগে আইডি ঠিক আছে কিনা দেখে নেবেন।
+      </div>
+    </div>
+    <div class="ff-notice-item">
+      <div class="ff-notice-icon check">✓</div>
+      <div class="ff-notice-text">
+        <b>Order Complete</b> দেখানোর পরও যদি ডায়মন্ড না যায়,<br>
+        তাহলে চেক করার জন্য আপনাকে <b>ID + Password</b> দিতে হবে।
+      </div>
+    </div>
+    <div class="ff-notice-item">
+      <div class="ff-notice-icon cross">✗</div>
+      <div class="ff-notice-text">
+        যদি কোনো অর্ডার <b>Cancel</b> হয়,<br>
+        তাহলে কেন Cancel হয়েছে তা <b>Order History</b>-তে লেখা থাকে।<br>
+        দয়া করে দেখে সঠিক তথ্য দিয়ে আবার অর্ডার করবেন।
+      </div>
+    </div>
+    <div class="ff-notice-logo">
+      <img src="ffbazar-logo.png" alt="FF BAZAR">
+    </div>
+    <div class="ff-notice-about">
+      <b>FFbazar — Free Fire টপ-আপ এখন আরও সহজ!</b><br><br>
+      <b>নোটিশ:</b><br>
+      FFbazar-এর মাধ্যমে আপনি ঘরে বসেই খুব সহজে টপআপ করতে পারবেন। আমরা দিচ্ছি দ্রুত ডেলিভারি, নিরাপদ পেমেন্ট এবং নির্ভরযোগ্য সার্ভিস এক জায়গায়।
+    </div>
+  </div>
+
+</div>
+
+<!-- Order Modal -->
+<div class="modal" id="orderModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <div id="orderForm">
+      <div class="modal-title">Payment Verification</div>
+      
+      <div class="step-box">
+        <div class="step-title">
+          <span class="step-num">1</span>
+          <span>Package Select করুন</span>
+        </div>
+        <div class="pkg-grid">
+          <div class="pkg-card" onclick="selectPkg(this)">
+            <h4>25 Diamond</h4>
+            <p>24৳</p>
+          </div>
+          <div class="pkg-card" onclick="selectPkg(this)">
+            <h4>50 Diamond</h4>
+            <p>39৳</p>
+          </div>
+          <div class="pkg-card" onclick="selectPkg(this)">
+            <h4>115 Diamond</h4>
+            <p>79৳</p>
+          </div>
+          <div class="pkg-card" onclick="selectPkg(this)">
+            <h4>Level Up Pass</h4>
+            <p>399৳</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-box">
+        <div class="step-title">
+          <span class="step-num">2</span>
+          <span>Player ID দিন</span>
+        </div>
+        <input type="text" id="playerId" placeholder="আপনার Free Fire UID দিন">
+      </div>
+
+      <div class="step-box">
+        <div class="step-title">
+          <span class="step-num">3</span>
+          <span>Transaction ID দিন</span>
+        </div>
+        <input type="text" id="txId" placeholder="bKash/Nagad TxID দিন">
+        <p style="font-size:12px;color:#6b7280;margin-top:5px">bKash: 017XXXXXXXX এ Send Money করে TxID দিন</p>
+      </div>
+
+      <button class="btn" onclick="submitOrder()">Submit Order</button>
+    </div>
+
+    <div id="successMessage" style="display:none">
+      <div class="success-box">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Order Successful!</div>
+        <div class="success-text">আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে।</div>
+        <div class="order-id">Order ID: <span id="orderIdShow"></span></div>
+        <div class="success-text">1-5 মিনিটের মধ্যে আপনার Diamond অ্যাকাউন্টে চলে যাবে।</div>
+        <button class="btn" onclick="closeModal()">ঠিক আছে</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="install-banner">
+  <div class="install-left">
+    <span>Install App</span>
+  </div>
+  <div>
+    <button class="install-btn">Install</button>
+    <button class="install-close" onclick="this.parentElement.parentElement.style.display='none'">&times;</button>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="nav-item active">
+    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    <span>Home</span>
+  </div>
+  <div class="nav-item">
+    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/></svg>
+    <span>Add Money</span>
+  </div>
+  <div class="nav-item">
+    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+    <span>My Orders</span>
+  </div>
+  <div class="nav-item">
+    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+    <span>My Codes</span>
+  </div>
+  <div class="nav-item">
+    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    <span>My Account</span>
+  </div>
+</div>
+
+<script>
+function openOrderModal(){
+  document.getElementById('orderModal').classList.add('show');
+  document.getElementById('orderForm').style.display='block';
+  document.getElementById('successMessage').style.display='none';
+}
+
+function closeModal(){
+  document.getElementById('orderModal').classList.remove('show');
+  document.getElementById('playerId').value='';
+  document.getElementById('txId').value='';
+  document.querySelectorAll('.pkg-card').forEach(c=>c.classList.remove('selected'));
+}
+
+function selectPkg(el){
+  document.querySelectorAll('.pkg-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function submitOrder(){
+  let playerId = document.getElementById('playerId').value;
+  let txId = document.getElementById('txId').value;
+  let selectedPkg = document.querySelector('.pkg-card.selected');
+  
+  if(!selectedPkg){
+    alert('Package Select করুন');
+    return;
+  }
+  if(!playerId){
+    alert('Player ID দিন');
+    return;
+  }
+  if(!txId){
+    alert('Transaction ID দিন');
+    return;
+  }
+  
+  let orderId = 'FF' + Date.now();
+  document.getElementById('orderIdShow').innerText = orderId;
+  document.getElementById('orderForm').style.display='none';
+  document.getElementById('successMessage').style.display='block';
+}
+
+document.getElementById('orderModal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+</script>
+
+</body>
+    </html>
